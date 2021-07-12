@@ -28,7 +28,8 @@ class Framework:
     self.level = level
     self.order = order
     text = open(corpus, encoding="utf-8").read()
-
+    if type(to_estimate) != bool:
+        print("Error: to_estimate parameter is not a boolean.")
     if to_estimate == False:
       self.tokens = self.tokens_from_string(text)
       self.train()
@@ -81,7 +82,6 @@ class Framework:
     exclude_punct = "@#$%&^*\"’‘`'"
     stop_punct = ".,:;!?"
     toprint = ""
-    # contractions = ["'s", "'nt", "'d", "'ll", "'re", "'ve", "n't"]
 
     # set up prompt by truncating or randomizing as necessary
     if prompt == "" or len(prompt) < self.order:
@@ -217,7 +217,7 @@ def main():
 
 
 
-    """Example of generating text on the word level on some model, starting from a random token"""
+    """Example of generation of text on a given corpus, starting from user inputted token"""
     ConanFrame = Framework("corpora/arthur_conan_doyle_collected_works.txt", "word", 1, True)
 
     ConanFrame.generate(200, ("A",))
